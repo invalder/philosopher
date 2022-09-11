@@ -6,7 +6,7 @@
 #    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/10 15:53:13 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/11 11:11:14 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,13 @@ SRCS	= philo.c \
 		philo_rules.c \
 		philo_init.c \
 		philo_routine.c \
+		philo_actions.c \
 
 OBJS	= $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME):	$(addprefix $(OBJ_DIR),$(OBJS))
+$(NAME):	norm $(addprefix $(OBJ_DIR),$(OBJS))
 		@$(CC) -g $(CFLAGS) $(addprefix $(OBJ_DIR),$(OBJS)) -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -41,6 +42,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 clean:
 	@$(RM) $(OBJ_DIR)
+	@$(RM) $(NAME)
+	@$(RM) "$(NAME).dSYM"
 
 fclean: clean
 
@@ -50,4 +53,4 @@ norm:
 	norminette -R CheckForbiddenSourceHeader
 	norminette -R CheckDefine
 
-.PHONY: fclean all clean re philo
+.PHONY: fclean all clean re philo norm

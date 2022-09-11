@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 02:14:39 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/10 17:28:53 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/11 01:06:00 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	main(int argc, char *argv[])
 		return (ft_handler(ERR_FORMAT));
 	ft_print_rules(&rules);
 	if (ft_philo_init(&meta, &rules))
+	{
+		if (meta.philo_meta)
+			free(meta.philo_meta);
 		return (ft_handler(ERR_PHILO_INIT));
+	}
+	if (meta.philo_meta)
+		free(meta.philo_meta);
 	return (0);
 }

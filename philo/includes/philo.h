@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 00:37:45 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/10 18:03:53 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/11 11:45:15 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <sys/wait.h>
+# include <time.h>
 
 enum e_handler {
 	ERR_INPUT = 1,
@@ -28,25 +29,25 @@ enum e_handler {
 
 typedef struct s_rules
 {
-	int		num_philo;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		num_eat_time;
-	size_t	time_init;
+	int				num_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_eat_time;
+	size_t			time_init;
 }	t_rules;
 
 typedef struct s_philo
 {
 	int				philo_num;
 	int				is_alive;
+	int				eat_allow;
 	size_t			last_eat;
 	size_t			last_sleep;
 	size_t			last_think;
-	pthread_mutex_t	philo_fork;
+	pthread_mutex_t	fork_right;
 	pthread_t		philosopher;
 	pthread_mutex_t	*fork_left;
-	pthread_mutex_t	*fork_right;
 	t_rules			*rule;
 }	t_philo;
 
@@ -70,10 +71,13 @@ void	ft_print_error(const char *str);
 int		ft_handler(int err_code);
 int		ft_handler2(int err_code);
 
+int		ft_philo_meta_init(t_meta *meta, t_rules *rules);
 int		t_philo_create(t_meta *meta, t_rules *rules);
 int		ft_philo_join(t_meta *meta, t_rules *rules);
 int		ft_philo_init(t_meta *meta, t_rules *rules);
 
 void	*ft_philo_routine(t_philo *philo);
+
+int		ft_philo_eating(t_philo *philo);
 
 #endif

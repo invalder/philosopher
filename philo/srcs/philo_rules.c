@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:13:07 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/10 17:42:00 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/11 11:19:36 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_rules_init(t_rules *rules, char **argv, int argc)
 {
+	struct timeval	tv;
+
 	if (!ft_input_check(argv, argc))
 	{
 		rules->num_philo = ft_atoi(argv[1]);
@@ -24,6 +26,8 @@ int	ft_rules_init(t_rules *rules, char **argv, int argc)
 			rules->num_eat_time = ft_atoi(argv[5]);
 		else
 			rules->num_eat_time = -1;
+		gettimeofday(&tv, NULL);
+		rules->time_init = tv.tv_sec * 1000000 + tv.tv_usec;
 		return (0);
 	}
 	return (1);
