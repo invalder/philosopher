@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 00:37:45 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/11 11:45:15 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/15 01:34:37 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_rules
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_eat_time;
+	int				is_alive;
 	size_t			time_init;
 }	t_rules;
 
@@ -44,7 +45,6 @@ typedef struct s_philo
 	int				eat_allow;
 	size_t			last_eat;
 	size_t			last_sleep;
-	size_t			last_think;
 	pthread_mutex_t	fork_right;
 	pthread_t		philosopher;
 	pthread_mutex_t	*fork_left;
@@ -79,5 +79,10 @@ int		ft_philo_init(t_meta *meta, t_rules *rules);
 void	*ft_philo_routine(t_philo *philo);
 
 int		ft_philo_eating(t_philo *philo);
+int		ft_philo_sleeping(t_philo *philo);
+int		ft_philo_starving(t_philo *philo);
+
+size_t	ft_current_time(t_rules *rules);
+size_t	ft_conv_us_ms(size_t current_time);
 
 #endif

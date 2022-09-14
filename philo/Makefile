@@ -6,7 +6,7 @@
 #    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/14 23:09:28 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/14 23:38:27 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS	= philo.c \
 		philo_init.c \
 		philo_routine.c \
 		philo_actions.c \
+		philo_time_handler.c \
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 12:53:02 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/10 15:30:15 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:33:56 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_handler(int err_code)
 	{
 		ft_print_error("Input may be in wrong, Please make sure that ");
 		ft_print_error("your inputs are in positive integer\n");
+		ft_print_error("number of philosopher must greater than 0\n");
 	}
 	else if (err_code == ERR_PHILO_INIT)
 		ft_print_error("Failure to init Philosopher!!!\n");
