@@ -6,7 +6,7 @@
 #    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/11 11:11:14 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/14 23:09:28 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,12 @@ OBJS	= $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME):	norm $(addprefix $(OBJ_DIR),$(OBJS))
-		@$(CC) -g $(CFLAGS) $(addprefix $(OBJ_DIR),$(OBJS)) -o $(NAME)
+$(NAME): $(addprefix $(OBJ_DIR),$(OBJS))
+		@$(CC) -pthread -g $(CFLAGS) $(addprefix $(OBJ_DIR),$(OBJS)) -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) -g $(CFLAGS) -c $< $(INCS) -o $@
+	@$(CC) -pthread -g $(CFLAGS) -c $< $(INCS) -o $@
 
 clean:
 	@$(RM) $(OBJ_DIR)
