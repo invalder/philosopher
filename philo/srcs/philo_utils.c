@@ -6,11 +6,12 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 10:35:35 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/10 17:41:54 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:58:50 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include "color.h"
 
 int	ft_atoi(const char *nptr)
 {

@@ -5,74 +5,112 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/11 11:08:26 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/15 01:40:51 by nnakarac         ###   ########.fr       */
+/*   Created: 2022/09/17 23:12:34 by nnakarac          #+#    #+#             */
+/*   Updated: 2022/09/18 15:09:06 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include "color.h"
 
-int	ft_philo_eating(t_philo *philo)
+int	ft_philo_fork_left(t_philo *philo)
 {
-	size_t			current_eat;
+	size_t	take_fork;
 
-	if (philo->eat_allow >= 3)
+	take_fork = 0;
+	if (philo->rule->is_alive && \
+		(philo->eat_allow != 1 && philo->eat_allow != 3) && \
+		philo->fork_left && !pthread_mutex_lock(philo->fork_left))
 	{
-		current_eat = ft_current_time(philo->rule);
-		if ((current_eat - philo->last_eat) <= \
-			(size_t) philo->rule->time_to_die * 1000)
-		{
-			printf("%ld ms, philo %d is eating\n", \
-				ft_conv_us_ms(current_eat), philo->philo_num);
-			philo->last_eat = current_eat;
-		}
-		else
-		{
-			printf("philo %d is dying from eating\n", philo->philo_num);
-			philo->is_alive = 0;
-			philo->rule->is_alive = 0;
-		}
+		take_fork = ft_current_time(philo->rule) / 1000;
+		printf(BBLU "%ld ms, %d has taken a fork\n" COLOR_RESET, \
+			take_fork, \
+			philo->philo_num);
+		philo->eat_allow += 1;
 		return (0);
 	}
-	else
-		return (ft_philo_starving(philo));
+	return (1);
 }
 
-int	ft_philo_sleeping(t_philo *philo)
+int	ft_philo_fork_right(t_philo *philo)
 {
-	size_t			current_sleep;
+	size_t	take_fork;
 
-	current_sleep = ft_current_time(philo->rule);
-	if ((current_sleep - philo->last_sleep) <= \
-		(size_t) philo->rule->time_to_die * 1000)
+	take_fork = 0;
+	if (philo->rule->is_alive && \
+		(philo->eat_allow != 2 && philo->eat_allow != 3) && \
+		!pthread_mutex_lock(&philo->fork_right))
 	{
-		printf("%ld ms, %d is sleeping\n", \
-			ft_conv_us_ms(current_sleep), philo->philo_num);
-		philo->last_sleep = current_sleep;
-	}
-	else
-	{
-		printf("philo %d is dying from sleeping\n", philo->philo_num);
-		philo->is_alive = 0;
-		philo->rule->is_alive = 0;
-	}
-
-	return (0);
-}
-
-int	ft_philo_starving(t_philo *philo)
-{
-	size_t			current_time;
-
-	current_time = ft_current_time(philo->rule);
-	if ((current_time - philo->last_eat)<= \
-		(size_t) philo->rule->time_to_die * 1000)
+		take_fork = ft_current_time(philo->rule) / 1000;
+		printf(BMAG"%ld ms, %d has taken a fork\n"COLOR_RESET, \
+			take_fork, \
+			philo->philo_num);
+		philo->eat_allow += 2;
 		return (0);
-	else
-	{
-		printf("philo %d is dying from starving\n", philo->philo_num);
-		philo->is_alive = 0;
-		philo->rule->is_alive = 0;
-		return (1);
 	}
+	return (1);
+}
+
+int	ft_philo_eat(t_philo *philo)
+{
+	size_t	current_eat;
+
+	current_eat = 0;
+	if (philo->rule->is_alive && philo->is_alive && \
+		philo->eat_allow == 3)
+	{
+		current_eat = ft_current_time(philo->rule) / 1000;
+		printf(CYN"%ld ms, %d is eating\n"COLOR_RESET, \
+			current_eat, \
+			philo->philo_num);
+		philo->last_eat = current_eat;
+		ft_myusleep(1000 * philo->rule->time_to_eat);
+		if (philo->rule->is_alive && philo->fork_left)
+			pthread_mutex_unlock(philo->fork_left);
+		pthread_mutex_unlock(&philo->fork_right);
+		philo->eat_allow += 1;
+		return (0);
+	}
+	return (1);
+}
+
+int	ft_philo_sleep(t_philo *philo)
+{
+	size_t	current_sleep;
+
+	current_sleep = 0;
+	if (philo->rule->is_alive && philo->is_alive \
+		&& philo->eat_allow == 4)
+	{
+		current_sleep = ft_current_time(philo->rule) / 1000;
+		printf(RED"%ld ms, %d is sleeping\n"COLOR_RESET, \
+			current_sleep, \
+			philo->philo_num);
+		philo->last_sleep = current_sleep / 1000;
+		ft_myusleep(1000 * philo->rule->time_to_sleep);
+		philo->eat_allow += 1;
+		return (0);
+	}
+	return (1);
+}
+
+int	ft_philo_think(t_philo *philo)
+{
+	size_t	current_think;
+
+	current_think = 0;
+	if (philo->rule->is_alive && philo->is_alive \
+		&& philo->eat_allow == 5)
+	{
+		current_think = ft_current_time(philo->rule) / 1000;
+		printf(YEL);
+		printf("%ld ms, %d is thinking\n", \
+			current_think, \
+			philo->philo_num);
+		printf(COLOR_RESET);
+		if (philo->rule->num_eat_time == -1)
+			philo->eat_allow = 0;
+		return (0);
+	}
+	return (1);
 }

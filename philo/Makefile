@@ -6,7 +6,7 @@
 #    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/14 23:38:27 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/18 02:11:33 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,11 @@ SRCS	= philo.c \
 		philo_handler.c \
 		philo_rules.c \
 		philo_init.c \
+		philo_init2.c \
 		philo_routine.c \
+		philo_timer_routine.c \
 		philo_actions.c \
+		philo_actions2.c \
 		philo_time_handler.c \
 
 OBJS	= $(SRCS:.c=.o)
@@ -39,7 +42,7 @@ $(NAME): $(addprefix $(OBJ_DIR),$(OBJS))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) -pthread -g $(CFLAGS) -c $< $(INCS) -o $@
+	@$(CC) -g -pthread $(CFLAGS) -c $< $(INCS) -o $@
 
 clean:
 	@$(RM) $(OBJ_DIR)

@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_actions2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/10 02:14:39 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/18 15:20:07 by nnakarac         ###   ########.fr       */
+/*   Created: 2022/09/15 22:35:40 by nnakarac          #+#    #+#             */
+/*   Updated: 2022/09/18 02:28:19 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "color.h"
 
-int	main(int argc, char *argv[])
+int	ft_philo_countdownt_philo(t_philo *philo)
 {
-	t_rules	rules;
-	t_meta	meta;
-
-	(void) meta;
-	if (argc < 5 || argc > 6)
-		return (ft_handler(ERR_INPUT));
-	if (ft_rules_init(&rules, argv, argc))
-		return (ft_handler(ERR_FORMAT));
-	if (ft_philo_init(&meta, &rules))
+	if (philo->rule->is_alive && philo->is_alive \
+		&& philo->eat_allow == 5)
 	{
-		if (meta.philo_meta)
-			free(meta.philo_meta);
-		return (ft_handler(ERR_PHILO_INIT));
+		if (philo->rule->num_eat_time > 0)
+		{
+			philo->time_to_eat--;
+			if (!philo->time_to_eat)
+			{
+				philo->is_alive = 0;
+			}
+		}
+		philo->eat_allow = 0;
+		return (0);
 	}
-	if (meta.philo_meta)
-		free(meta.philo_meta);
-	return (0);
+	return (1);
 }

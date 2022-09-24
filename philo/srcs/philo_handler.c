@@ -6,11 +6,12 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 12:53:02 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/15 00:33:56 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:58:41 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include "color.h"
 
 size_t	ft_strlen(const char *s)
 {

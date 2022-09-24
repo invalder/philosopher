@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_routine.c                                    :+:      :+:    :+:   */
+/*   philo_timer_routine.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 23:03:52 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/18 15:24:24 by nnakarac         ###   ########.fr       */
+/*   Created: 2022/09/17 23:04:19 by nnakarac          #+#    #+#             */
+/*   Updated: 2022/09/18 16:21:25 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "color.h"
 
-void	*ft_philo_routine(t_philo *philo)
+void	*ft_philo_timer_routine(t_philo *philo)
 {
 	while (philo->rule->is_alive && philo->is_alive)
 	{
-		if (philo->rule->is_alive && philo->is_alive)
-			ft_philo_fork_left(philo);
-		if (philo->rule->is_alive && philo->is_alive)
-			ft_philo_fork_right(philo);
-		if (philo->rule->is_alive && philo->is_alive)
-			ft_philo_eat(philo);
-		if (philo->rule->is_alive && philo->is_alive)
-			ft_philo_sleep(philo);
-		if (philo->rule->is_alive && philo->is_alive)
-			ft_philo_think(philo);
-		if (philo->rule->is_alive && philo->is_alive)
-			ft_philo_countdownt_philo(philo);
+		ft_philo_starving(philo);
+		usleep(1);
 	}
 	return (NULL);
+}
+
+int	ft_philo_starving(t_philo *philo)
+{
+	size_t			current_time;
+
+	current_time = ft_current_time(philo->rule) / 1000;
+	if ((current_time - philo->last_eat) <= \
+		((size_t) philo->rule->time_to_die))
+		return (0);
+	else
+	{
+		printf(RED"%ld ms, %d is dying\n"COLOR_RESET, \
+			current_time, \
+			philo->philo_num);
+		philo->is_alive = 0;
+		philo->rule->is_alive = 0;
+		return (1);
+	}
 }

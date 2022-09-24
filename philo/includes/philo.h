@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 00:37:45 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/15 01:34:37 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/18 02:29:26 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <sys/wait.h>
 # include <time.h>
 
-enum e_handler {
+enum e_handler
+{
 	ERR_INPUT = 1,
 	ERR_FORMAT = 2,
 	ERR_PHILO_INIT = 3,
@@ -43,10 +44,12 @@ typedef struct s_philo
 	int				philo_num;
 	int				is_alive;
 	int				eat_allow;
+	int				time_to_eat;
 	size_t			last_eat;
 	size_t			last_sleep;
 	pthread_mutex_t	fork_right;
 	pthread_t		philosopher;
+	pthread_t		philo_timer;
 	pthread_mutex_t	*fork_left;
 	t_rules			*rule;
 }	t_philo;
@@ -74,15 +77,27 @@ int		ft_handler2(int err_code);
 int		ft_philo_meta_init(t_meta *meta, t_rules *rules);
 int		t_philo_create(t_meta *meta, t_rules *rules);
 int		ft_philo_join(t_meta *meta, t_rules *rules);
+
+int		ft_philo_timer_create(t_meta *meta, t_rules *rules);
+int		ft_philo_timer_join(t_meta *meta, t_rules *rules);
+
 int		ft_philo_init(t_meta *meta, t_rules *rules);
 
 void	*ft_philo_routine(t_philo *philo);
+void	*ft_philo_timer_routine(t_philo *philo);
 
-int		ft_philo_eating(t_philo *philo);
-int		ft_philo_sleeping(t_philo *philo);
+int		ft_philo_fork_left(t_philo *philo);
+int		ft_philo_fork_right(t_philo *philo);
+int		ft_philo_eat(t_philo *philo);
+int		ft_philo_sleep(t_philo *philo);
+int		ft_philo_think(t_philo *philo);
+int		ft_philo_countdownt_philo(t_philo *philo);
+
 int		ft_philo_starving(t_philo *philo);
 
 size_t	ft_current_time(t_rules *rules);
+size_t	ft_current_time_rel(size_t current_time, t_rules *rules);
 size_t	ft_conv_us_ms(size_t current_time);
+void	ft_myusleep(size_t	time);
 
 #endif
