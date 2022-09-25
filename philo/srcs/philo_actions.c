@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:12:34 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/18 15:09:06 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/26 00:07:05 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ int	ft_philo_eat(t_philo *philo)
 			pthread_mutex_unlock(philo->fork_left);
 		pthread_mutex_unlock(&philo->fork_right);
 		philo->eat_allow += 1;
+		if (philo->rule->num_eat_time > 0)
+		{
+			philo->time_to_eat--;
+			if (!philo->time_to_eat)
+				philo->is_alive = 0;
+		}
 		return (0);
 	}
 	return (1);
@@ -103,13 +109,10 @@ int	ft_philo_think(t_philo *philo)
 		&& philo->eat_allow == 5)
 	{
 		current_think = ft_current_time(philo->rule) / 1000;
-		printf(YEL);
-		printf("%ld ms, %d is thinking\n", \
+		printf(YEL"%ld ms, %d is thinking\n"COLOR_RESET, \
 			current_think, \
 			philo->philo_num);
-		printf(COLOR_RESET);
-		if (philo->rule->num_eat_time == -1)
-			philo->eat_allow = 0;
+		philo->eat_allow = 0;
 		return (0);
 	}
 	return (1);

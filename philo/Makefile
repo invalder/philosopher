@@ -6,7 +6,7 @@
 #    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/18 02:11:33 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/26 00:16:41 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,20 @@ SRCS	= philo.c \
 
 OBJS	= $(SRCS:.c=.o)
 
+.SILENT: pointer meow
+
 all: $(NAME)
 
-$(NAME): $(addprefix $(OBJ_DIR),$(OBJS))
+meow:
+	./images/meow.sh
+
+meow2:
+	./images/meow2.sh
+
+pointer:
+	./images/pointer.sh
+
+$(NAME): pointer $(addprefix $(OBJ_DIR),$(OBJS))
 		@$(CC) -pthread -g $(CFLAGS) $(addprefix $(OBJ_DIR),$(OBJS)) -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -53,8 +64,7 @@ fclean: clean
 
 re: fclean all
 
-norm:
-	norminette -R CheckForbiddenSourceHeader
-	norminette -R CheckDefine
+norm: meow
+	norminette -R CheckForbiddenSourceHeaderDefine
 
 .PHONY: fclean all clean re philo norm

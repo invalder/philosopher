@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 12:53:02 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/17 22:58:41 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/26 00:12:34 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_print_error(const char *str)
 
 int	ft_handler(int err_code)
 {
+	ft_print_error(BRED);
 	if (err_code == ERR_INPUT)
 	{
 		ft_print_error("Input may be wrong, Please follow these below!!!\n");
@@ -52,6 +53,7 @@ int	ft_handler(int err_code)
 		ft_print_error("Failure to init Philosopher!!!\n");
 	else
 		ft_handler2(err_code);
+	ft_print_error(RESET);
 	return (err_code);
 }
 
