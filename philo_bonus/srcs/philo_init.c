@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 14:07:35 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/25 18:03:51 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:18:04 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	ft_philo_meta_init(t_meta *meta, t_rules *rules)
 {
-	meta->philo_meta[0].philo_num = meta->philo_id + 1;
+	meta->philo_meta[0].philo_num = meta->philo_id;
 	meta->philo_meta[0].is_alive = 1;
 	meta->philo_meta[0].eat_allow = 0;
 	meta->philo_meta[0].last_eat = 0;
@@ -79,7 +79,6 @@ int	ft_philo_init(t_meta *meta, t_rules *rules)
 			if (!meta->proc_id)
 			{
 				meta->philo_id = proccnt + 1;
-				break;
 			}
 			else
 				meta->philo_id = -1;
