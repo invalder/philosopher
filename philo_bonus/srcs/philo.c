@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:55:12 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/25 11:53:06 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:29:10 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char *argv[])
 			free(meta.philo_meta);
 		return (ft_handler(ERR_PHILO_INIT));
 	}
-	if (meta.philo_meta)
+	if (!meta.proc_id && meta.philo_meta)
 	{
 		printf("Free Metamon\n");
 		free(meta.philo_meta);

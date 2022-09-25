@@ -6,11 +6,11 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:04:19 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/18 16:21:25 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:03:03 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 #include "color.h"
 
 void	*ft_philo_timer_routine(t_philo *philo)
@@ -33,11 +33,11 @@ int	ft_philo_starving(t_philo *philo)
 		return (0);
 	else
 	{
+		philo->is_alive = 0;
+		philo->rule->is_alive = 0;
 		printf(RED"%ld ms, %d is dying\n"COLOR_RESET, \
 			current_time, \
 			philo->philo_num);
-		philo->is_alive = 0;
-		philo->rule->is_alive = 0;
 		return (1);
 	}
 }
