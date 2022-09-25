@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:04:19 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/18 16:21:25 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:17:37 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	ft_philo_starving(t_philo *philo)
 		return (0);
 	else
 	{
+		philo->is_alive = 0;
+		philo->rule->is_alive = 0;
 		printf(RED"%ld ms, %d is dying\n"COLOR_RESET, \
 			current_time, \
 			philo->philo_num);
-		philo->is_alive = 0;
-		philo->rule->is_alive = 0;
 		return (1);
 	}
 }

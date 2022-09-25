@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:36:53 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/18 13:15:10 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:14:13 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_philo_meta_init(t_meta *meta, t_rules *rules)
 	num_philo = 0;
 	while (num_philo < rules->num_philo)
 	{
-		meta->philo_meta[num_philo].philo_num = num_philo;
+		meta->philo_meta[num_philo].philo_num = num_philo + 1;
 		meta->philo_meta[num_philo].is_alive = 1;
 		meta->philo_meta[num_philo].eat_allow = 0;
 		meta->philo_meta[num_philo].last_eat = 0;
