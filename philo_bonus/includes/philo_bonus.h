@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 00:37:45 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/25 17:44:23 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:34:59 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <time.h>
 # include <semaphore.h>
 # include <errno.h>
+# include <fcntl.h>
+# include <signal.h>
+# include <sys/types.h>
 
 enum e_handler
 {
@@ -60,6 +63,8 @@ typedef struct s_meta
 	t_philo		*philo_meta;
 	int			proc_id;
 	int			philo_id;
+	int			*proc_list;
+	int			status;
 }	t_meta;
 
 int		ft_isspace(int c);
@@ -102,5 +107,15 @@ size_t	ft_current_time(t_rules *rules);
 size_t	ft_current_time_rel(size_t current_time, t_rules *rules);
 size_t	ft_conv_us_ms(size_t current_time);
 void	ft_myusleep(size_t	time);
+
+int		ft_philo_first_fork(int proccnt, t_meta *meta, t_rules *rules);
+int		ft_philo_other_fork(int proccnt, t_meta *meta, t_rules *rules);
+
+int		ft_semaphore_destroy(t_rules *rules);
+int		ft_kill_other_children(t_meta *meta, t_rules *rules);
+
+int		ft_malloc_chk(void *ptr, t_meta *meta, t_rules *rules);
+int		ft_fork_chk(int id, t_meta *meta, t_rules *rules);
+
 
 #endif

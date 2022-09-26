@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:55:12 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/25 17:29:10 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:17:39 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	main(int argc, char *argv[])
 	t_rules	rules;
 	t_meta	meta;
 
-	(void) meta;
 	if (argc < 5 || argc > 6)
 		return (ft_handler(ERR_INPUT));
 	if (ft_rules_init(&rules, argv, argc))
@@ -30,15 +29,13 @@ int	main(int argc, char *argv[])
 			free(meta.philo_meta);
 		return (ft_handler(ERR_PHILO_INIT));
 	}
+	waitpid(-1, &meta.status, 0);
 	if (!meta.proc_id && meta.philo_meta)
 	{
 		printf("Free Metamon\n");
 		free(meta.philo_meta);
 	}
-	while (wait(NULL) != -1 || errno != ECHILD)
-	{
-		printf("Waiting for the child finished\n");
-	}
-	printf("PID %d closed\n", getpid());
+	printf("This is the way\n");
+	ft_kill_other_children(&meta, &rules);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 14:07:35 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/25 20:18:04 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:20:25 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,41 +60,14 @@ int	ft_philo_join(t_meta *meta, t_rules *rules)
 int	ft_philo_init(t_meta *meta, t_rules *rules)
 {
 	struct timeval	tv;
-	int				proccnt;
 
-	(void) tv;
-	(void) rules;
-	proccnt = 1;
-	meta->proc_id = fork();
-	if (meta->proc_id == 0)
-		meta->philo_id = proccnt;
-	if (meta->proc_id != 0)
-	{
-		while (proccnt < rules->num_philo)
-		{
-			if (!meta->proc_id)
-				break;
-			else
-				meta->proc_id = fork();
-			if (!meta->proc_id)
-			{
-				meta->philo_id = proccnt + 1;
-			}
-			else
-				meta->philo_id = -1;
-			proccnt++;
-		}
-	}
-	if (meta->proc_id != 0)
-		sleep(1);
-	// if (meta->proc_id == 0)
-	printf("Hello form philo id %d\n",meta->philo_id);
-	// printf("Hello form %d my parents is %d\n", getpid(), getppid());
+	meta->proc_list = malloc(sizeof(int) * rules->num_philo);
+	ft_malloc_chk(meta->proc_list, meta, rules);
+	ft_philo_first_fork(1, meta, rules);
 	if (!meta->proc_id)
 	{
 		meta->philo_meta = malloc(sizeof(t_philo) * 1);
-		if (!meta->philo_meta)
-			return (1);
+		ft_malloc_chk(meta->philo_meta, meta, rules);
 		ft_philo_meta_init(meta, rules);
 		if (ft_philo_create(meta, rules))
 			return (1);
@@ -109,20 +82,5 @@ int	ft_philo_init(t_meta *meta, t_rules *rules)
 		if (ft_philo_timer_join(meta, rules))
 			return (1);
 	}
-	// if (!meta->philo_meta)
-	// 	return (1);
-	// ft_philo_meta_init(meta, rules);
-	// if (ft_philo_create(meta, rules))
-	// 	return (1);
-	// if (ft_philo_timer_create(meta, rules))
-	// 	return (1);
-	// gettimeofday(&tv, NULL);
-	// rules->time_init = tv.tv_sec * 1000000 + tv.tv_usec;
-	// if (ft_philo_time_init(meta, rules))
-	// 	return (1);
-	// if (ft_philo_join(meta, rules))
-	// 	return (1);
-	// if (ft_philo_timer_join(meta, rules))
-	// 	return (1);
 	return (0);
 }

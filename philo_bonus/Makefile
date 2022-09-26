@@ -6,7 +6,7 @@
 #    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/25 17:26:38 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/27 01:23:38 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,13 @@ SRCS	= philo.c \
 		philo_handler.c \
 		philo_rules.c \
 		philo_time_handler.c \
+		philo_exit_handler.c \
+		philo_err_handler.c \
 		philo_init.c \
 		philo_init2.c \
+		philo_fork.c \
 		philo_routine.c \
+		philo_actions.c \
 		philo_timer_routine.c \
 
 OBJS	= $(SRCS:.c=.o)

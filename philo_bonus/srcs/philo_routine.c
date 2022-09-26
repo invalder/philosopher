@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:03:52 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/25 17:53:30 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:24:50 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	*ft_philo_routine(t_philo *philo)
 	(void) philo;
 	while (philo->rule->is_alive && philo->is_alive)
 	{
-	// 	if (philo->rule->is_alive && philo->is_alive)
-	// 		ft_philo_fork_left(philo);
-	// 	if (philo->rule->is_alive && philo->is_alive)
-	// 		ft_philo_fork_right(philo);
+		if (philo->rule->is_alive && philo->is_alive)
+			ft_philo_fork_left(philo);
+		// if (philo->rule->is_alive && philo->is_alive)
+		// 	ft_philo_fork_right(philo);
 	// 	if (philo->rule->is_alive && philo->is_alive)
 	// 		ft_philo_eat(philo);
 	// 	if (philo->rule->is_alive && philo->is_alive)

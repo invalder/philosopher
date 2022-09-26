@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:13:07 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/25 03:39:32 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:49:22 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	ft_rules_init(t_rules *rules, char **argv, int argc)
 		rules->time_to_eat = ft_atoi(argv[3]);
 		rules->time_to_sleep = ft_atoi(argv[4]);
 		rules->is_alive = 1;
-		// sem_init(&rules->semaphore, 1, rules->num_philo);
-		rules->semaphore = sem_open("/sem", O_CREAT, 0644, rules->num_philo);
+		rules->semaphore = sem_open("/sem3", O_CREAT, 0644, rules->num_philo);
 		if (argc == 6)
 		{
 			rules->num_eat_time = ft_atoi(argv[5]);
