@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:36:53 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/25 17:14:13 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/28 02:22:20 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_philo_meta_init(t_meta *meta, t_rules *rules)
 		meta->philo_meta[num_philo].last_sleep = 0;
 		meta->philo_meta[num_philo].fork_left = NULL;
 		meta->philo_meta[num_philo].rule = rules;
+		meta->philo_meta[num_philo].fork_right = \
+			(pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
 		if (rules->num_eat_time > 0)
 			meta->philo_meta[num_philo].time_to_eat = rules->num_eat_time;
 		num_philo++;

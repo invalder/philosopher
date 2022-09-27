@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 00:37:45 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/18 02:29:26 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/28 01:59:04 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	ft_print_error(const char *str);
 int		ft_handler(int err_code);
 int		ft_handler2(int err_code);
 
+int		ft_philo_meta_init_first(t_meta *meta, t_rules *rules);
 int		ft_philo_meta_init(t_meta *meta, t_rules *rules);
 int		t_philo_create(t_meta *meta, t_rules *rules);
 int		ft_philo_join(t_meta *meta, t_rules *rules);

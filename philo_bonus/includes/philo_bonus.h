@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 00:37:45 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/27 01:34:59 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/28 00:49:33 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <sys/types.h>
+# include <string.h>
 
 enum e_handler
 {
@@ -116,6 +117,5 @@ int		ft_kill_other_children(t_meta *meta, t_rules *rules);
 
 int		ft_malloc_chk(void *ptr, t_meta *meta, t_rules *rules);
 int		ft_fork_chk(int id, t_meta *meta, t_rules *rules);
-
 
 #endif
