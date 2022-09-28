@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 00:55:17 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 00:51:16 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/29 01:00:38 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_malloc_chk(void *ptr, t_meta *meta, t_rules *rules)
 			free(meta->philo_meta);
 		if (meta->proc_list)
 			free(meta->proc_list);
-		ft_semaphore_destroy(rules);
+		ft_semaphore_destroy(meta, rules);
 		ft_kill_other_children(meta, rules);
 		exit(1);
 	}
@@ -37,7 +37,7 @@ int	ft_fork_chk(int id, t_meta *meta, t_rules *rules)
 			free(meta->philo_meta);
 		if (meta->proc_list)
 			free(meta->proc_list);
-		ft_semaphore_destroy(rules);
+		ft_semaphore_destroy(meta, rules);
 		ft_kill_other_children(meta, rules);
 		exit(1);
 	}

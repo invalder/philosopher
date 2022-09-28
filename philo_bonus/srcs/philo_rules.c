@@ -6,12 +6,24 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:13:07 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/27 22:58:25 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:53:44 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 #include "color.h"
+
+int	ft_rules_pre_init(t_rules *rules, char **argv)
+{
+	rules->num_philo = ft_atoi(argv[1]);
+	if (rules->num_philo < 1)
+		return (1);
+	rules->time_to_die = ft_atoi(argv[2]);
+	rules->time_to_eat = ft_atoi(argv[3]);
+	rules->time_to_sleep = ft_atoi(argv[4]);
+	rules->is_alive = 1;
+	return (0);
+}
 
 int	ft_rules_init(t_rules *rules, char **argv, int argc)
 {
@@ -19,14 +31,10 @@ int	ft_rules_init(t_rules *rules, char **argv, int argc)
 
 	if (!ft_input_check(argv, argc))
 	{
-		rules->num_philo = ft_atoi(argv[1]);
-		if (rules->num_philo < 1)
+		if (ft_rules_pre_init(rules, argv))
 			return (1);
-		rules->time_to_die = ft_atoi(argv[2]);
-		rules->time_to_eat = ft_atoi(argv[3]);
-		rules->time_to_sleep = ft_atoi(argv[4]);
-		rules->is_alive = 1;
-		rules->semaphore = sem_open("/philo_sem", O_CREAT, 0644, rules->num_philo);
+		rules->semaphore = sem_open("/sem", O_CREAT, 0644, rules->num_philo);
+		rules->actionsem = sem_open("/act", O_CREAT, 0644, 1);
 		if (argc == 6)
 		{
 			rules->num_eat_time = ft_atoi(argv[5]);

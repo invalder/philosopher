@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 00:37:45 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 00:49:33 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/29 01:01:00 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_rules
 	int				is_alive;
 	size_t			time_init;
 	sem_t			*semaphore;
+	sem_t			*actionsem;
 }	t_rules;
 
 typedef struct s_philo
@@ -112,7 +113,7 @@ void	ft_myusleep(size_t	time);
 int		ft_philo_first_fork(int proccnt, t_meta *meta, t_rules *rules);
 int		ft_philo_other_fork(int proccnt, t_meta *meta, t_rules *rules);
 
-int		ft_semaphore_destroy(t_rules *rules);
+int		ft_semaphore_destroy(t_meta *meta, t_rules *rules);
 int		ft_kill_other_children(t_meta *meta, t_rules *rules);
 
 int		ft_malloc_chk(void *ptr, t_meta *meta, t_rules *rules);

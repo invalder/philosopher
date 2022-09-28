@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:55:12 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 02:39:13 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/29 01:06:48 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char *argv[])
 		return (ft_handler(ERR_INPUT));
 	if (ft_rules_init(&rules, argv, argc))
 		return (ft_handler(ERR_FORMAT));
-	sem_unlink("/philo_sem");
+	ft_semaphore_destroy(&meta, &rules);
 	if (ft_philo_init(&meta, &rules))
 	{
 		if (meta.philo_meta)
@@ -37,6 +37,7 @@ int	main(int argc, char *argv[])
 	if (!meta.proc_id && meta.philo_meta)
 		free(meta.philo_meta);
 	sem_close(rules.semaphore);
-	sem_unlink("/philo_sem");
+	sem_close(rules.actionsem);
+	ft_semaphore_destroy(&meta, &rules);
 	return (0);
 }

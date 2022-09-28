@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 14:07:35 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 02:46:10 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:59:03 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	ft_philo_time_init(t_meta *meta, t_rules *rules)
 int	ft_philo_create(t_meta *meta, t_rules *rules)
 {
 	(void) rules;
+	if (meta->philo_id % 2 == 0)
+		usleep(500);
 	if (pthread_create(&meta->philo_meta[0].philosopher, NULL, \
 		(void *)ft_philo_routine, &meta->philo_meta[0]))
 	{
@@ -49,8 +51,6 @@ int	ft_philo_create(t_meta *meta, t_rules *rules)
 int	ft_philo_join(t_meta *meta, t_rules *rules)
 {
 	(void) rules;
-	if (meta->philo_id % 2 == 0)
-		usleep(500);
 	if (pthread_join(meta->philo_meta[0].philosopher, NULL))
 	{
 		perror("Failed to join thread");
