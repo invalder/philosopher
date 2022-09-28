@@ -6,7 +6,7 @@
 #    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/29 01:17:15 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/29 01:37:17 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,8 @@ SRCS	= philo.c \
 		philo_timer_routine.c \
 
 OBJS	= $(SRCS:.c=.o)
+
+UNAME = $(shell uname -s)
 
 .SILENT: pointer meow
 
