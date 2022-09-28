@@ -6,7 +6,7 @@
 #    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/27 01:23:38 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/29 01:17:15 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,6 @@ fclean: clean
 re: fclean all
 
 norm: meow
-	norminette -R CheckForbiddenSourceHeader
-	norminette -R CheckDefine
+	@norminette -R CheckForbiddenSourceHeaderDefine
 
 .PHONY: fclean all clean re philo norm meow meow2 pointer
