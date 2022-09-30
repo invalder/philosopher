@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 00:29:29 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/29 01:04:04 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/01 01:24:55 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	ft_kill_other_children(t_meta *meta, t_rules *rules)
 				perror("Failed to kill");
 				exit(1);
 			}
-			else
-				printf("%d Killed\n", meta->proc_list[cnt]);
 		}
 		cnt++;
 	}
