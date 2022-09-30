@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nnakarac <nnakarac@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:12:34 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 03:11:18 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:22:47 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int	ft_philo_fork_left(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			take_fork = ft_current_time(philo->rule) / 1000;
+			sem_wait(philo->rule->actionsem);
 			printf(BBLU "%ld ms, %d has taken a fork\n" COLOR_RESET, \
-				take_fork, \
-				philo->philo_num);
+				take_fork, philo->philo_num);
+			sem_post(philo->rule->actionsem);
 			philo->eat_allow += 1;
 			return (0);
 		}
@@ -48,9 +49,10 @@ int	ft_philo_fork_right(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			take_fork = ft_current_time(philo->rule) / 1000;
+			sem_wait(philo->rule->actionsem);
 			printf(BBLU "%ld ms, %d has taken a fork\n" COLOR_RESET, \
-				take_fork, \
-				philo->philo_num);
+				take_fork, philo->philo_num);
+			sem_post(philo->rule->actionsem);
 			philo->eat_allow += 2;
 			return (0);
 		}
@@ -68,9 +70,10 @@ int	ft_philo_eat(t_philo *philo)
 		philo->eat_allow == 3)
 	{
 		current_eat = ft_current_time(philo->rule) / 1000;
+		sem_wait(philo->rule->actionsem);
 		printf(CYN"%ld ms, %d is eating\n"COLOR_RESET, \
-			current_eat, \
-			philo->philo_num);
+			current_eat, philo->philo_num);
+		sem_post(philo->rule->actionsem);
 		philo->last_eat = current_eat;
 		ft_myusleep(1000 * philo->rule->time_to_eat);
 		sem_post(philo->rule->semaphore);
@@ -98,12 +101,13 @@ int	ft_philo_sleep(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_sleep = ft_current_time(philo->rule) / 1000;
+			sem_wait(philo->rule->actionsem);
 			if (philo->rule->is_alive && philo->is_alive)
 			{
 				printf(RED"%ld ms, %d is sleeping\n"COLOR_RESET, \
-					current_sleep, \
-					philo->philo_num);
+					current_sleep, philo->philo_num);
 			}
+			sem_post(philo->rule->actionsem);
 			philo->last_sleep = current_sleep / 1000;
 			ft_myusleep(1000 * philo->rule->time_to_sleep);
 			philo->eat_allow += 1;
@@ -125,12 +129,13 @@ int	ft_philo_think(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_think = ft_current_time(philo->rule) / 1000;
+			sem_wait(philo->rule->actionsem);
 			if (philo->rule->is_alive && philo->is_alive)
 			{
 				printf(YEL"%ld ms, %d is thinking\n"COLOR_RESET, \
-					current_think, \
-					philo->philo_num);
+					current_think, philo->philo_num);
 			}
+			sem_post(philo->rule->actionsem);
 			philo->eat_allow = 0;
 			return (0);
 		}

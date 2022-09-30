@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_timer_routine.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nnakarac <nnakarac@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:04:19 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 22:18:09 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:26:40 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_philo_starving(t_philo *philo)
 	{
 		philo->is_alive = 0;
 		philo->rule->is_alive = 0;
+		sem_wait(philo->rule->actionsem);
 		printf(RED"%ld ms, %d is dying\n"COLOR_RESET, \
 			current_time, \
 			philo->philo_num);

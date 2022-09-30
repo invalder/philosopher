@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+         #
+#    By: nnakarac <nnakarac@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/10 02:14:56 by nnakarac          #+#    #+#              #
-#    Updated: 2022/09/29 01:37:17 by nnakarac         ###   ########.fr        #
+#    Updated: 2022/09/30 17:27:37 by nnakarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,15 @@ SRCS	= philo.c \
 
 OBJS	= $(SRCS:.c=.o)
 
+NORM = norminette -R CheckForbiddenSourceHeaderDefine | grep -c 'Error:' || true
+
 UNAME = $(shell uname -s)
+ifeq ($(UNAME), Linux)
+	MEME = aplay images/meme2.mp3 &
+else
+	MEME = afplay images/meme2.mp3 -v 0.2 &
+endif
+
 
 .SILENT: pointer meow
 
@@ -72,6 +80,7 @@ fclean: clean
 re: fclean all
 
 norm: meow
-	@norminette -R CheckForbiddenSourceHeaderDefine
+	@$(MEME)
+	@$(NORM)
 
 .PHONY: fclean all clean re philo norm meow meow2 pointer
