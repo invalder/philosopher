@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nnakarac <nnakarac@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:12:34 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 03:10:57 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:57:02 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,18 @@ int	ft_philo_sleep(t_philo *philo)
 	if (philo->rule->is_alive && philo->is_alive \
 		&& philo->eat_allow == 4)
 	{
-		current_sleep = ft_current_time(philo->rule) / 1000;
-		printf(RED"%ld ms, %d is sleeping\n"COLOR_RESET, \
-			current_sleep, \
-			philo->philo_num);
-		philo->last_sleep = current_sleep / 1000;
-		ft_myusleep(1000 * philo->rule->time_to_sleep);
-		philo->eat_allow += 1;
-		return (0);
+		if (philo->rule->is_alive && philo->is_alive)
+		{
+			current_sleep = ft_current_time(philo->rule) / 1000;
+			printf(RED"%ld ms, %d is sleeping\n"COLOR_RESET, \
+				current_sleep, \
+				philo->philo_num);
+			philo->last_sleep = current_sleep / 1000;
+			ft_myusleep(1000 * philo->rule->time_to_sleep);
+			philo->eat_allow += 1;
+			return (0);
+		}
+		return (1);
 	}
 	return (1);
 }
@@ -108,12 +112,16 @@ int	ft_philo_think(t_philo *philo)
 	if (philo->rule->is_alive && philo->is_alive \
 		&& philo->eat_allow == 5)
 	{
-		current_think = ft_current_time(philo->rule) / 1000;
-		printf(YEL"%ld ms, %d is thinking\n"COLOR_RESET, \
-			current_think, \
-			philo->philo_num);
-		philo->eat_allow = 0;
-		return (0);
+		if (philo->rule->is_alive && philo->is_alive)
+		{
+			current_think = ft_current_time(philo->rule) / 1000;
+			printf(YEL"%ld ms, %d is thinking\n"COLOR_RESET, \
+				current_think, \
+				philo->philo_num);
+			philo->eat_allow = 0;
+			return (0);
+		}
+		return (1);
 	}
 	return (1);
 }
