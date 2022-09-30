@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 22:59:57 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 02:03:15 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/01 01:44:30 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_philo_timer_join(t_meta *meta, t_rules *rules)
 	int	num_philo;
 
 	num_philo = 0;
-	usleep(5000);
+	ft_myusleep(5000);
 	while (num_philo < rules->num_philo)
 	{
 		if (pthread_join(meta->philo_meta[num_philo].philo_timer, NULL))

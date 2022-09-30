@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:12:34 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/10/01 01:32:51 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/01 02:16:16 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ int	ft_philo_fork_left(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			take_fork = ft_current_time(philo->rule) / 1000;
-			printf(BBLU "%ld ms, %d has taken a fork\n" COLOR_RESET, \
-				take_fork, \
-				philo->philo_num);
+			if (philo->rule->is_alive && philo->is_alive)
+			{
+				printf(BBLU "%ld ms, %d has taken a fork\n" COLOR_RESET, \
+					take_fork, philo->philo_num);
+			}
+			else
+				return (1);
 			philo->eat_allow += 1;
 			return (0);
 		}
@@ -41,7 +45,7 @@ int	ft_philo_fork_right(t_philo *philo)
 	size_t	take_fork;
 
 	take_fork = 0;
-	if (philo->rule->is_alive && \
+	if (philo->rule->is_alive && philo->eat_allow == 1 && \
 		(philo->eat_allow != 2 && philo->eat_allow != 3) && \
 		!pthread_mutex_lock(&philo->fork_right))
 	{
@@ -49,9 +53,13 @@ int	ft_philo_fork_right(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			take_fork = ft_current_time(philo->rule) / 1000;
-			printf(BMAG"%ld ms, %d has taken a fork\n"COLOR_RESET, \
-				take_fork, \
-				philo->philo_num);
+			if (philo->rule->is_alive && philo->is_alive)
+			{
+				printf(BMAG"%ld ms, %d has taken a fork\n"COLOR_RESET, \
+					take_fork, philo->philo_num);
+			}
+			else
+				return (1);
 			philo->eat_allow += 2;
 			return (0);
 		}
@@ -66,6 +74,7 @@ int	ft_philo_eat(t_philo *philo)
 	current_eat = 0;
 	if (philo->rule->is_alive && philo->is_alive && philo->eat_allow == 3)
 	{
+		ft_myusleep(1000);
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_eat = ft_current_time(philo->rule) / 1000;
@@ -96,9 +105,11 @@ int	ft_philo_sleep(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_sleep = ft_current_time(philo->rule) / 1000;
-			printf(RED"%ld ms, %d is sleeping\n"COLOR_RESET, \
-				current_sleep, \
-				philo->philo_num);
+			if (philo->rule->is_alive && philo->is_alive)
+				printf(RED"%ld ms, %d is sleeping\n"COLOR_RESET, \
+					current_sleep, philo->philo_num);
+			else
+				return (1);
 			philo->last_sleep = current_sleep / 1000;
 			ft_myusleep(1000 * philo->rule->time_to_sleep);
 			philo->eat_allow += 1;
@@ -120,9 +131,11 @@ int	ft_philo_think(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_think = ft_current_time(philo->rule) / 1000;
-			printf(YEL"%ld ms, %d is thinking\n"COLOR_RESET, \
-				current_think, \
-				philo->philo_num);
+			if (philo->rule->is_alive && philo->is_alive)
+				printf(YEL"%ld ms, %d is thinking\n"COLOR_RESET, \
+					current_think, philo->philo_num);
+			else
+				return (1);
 			philo->eat_allow = 0;
 			return (0);
 		}
