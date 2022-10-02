@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 14:07:35 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/29 00:59:03 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/03 01:26:06 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ int	ft_philo_init(t_meta *meta, t_rules *rules)
 		meta->philo_meta = malloc(sizeof(t_philo) * 1);
 		ft_malloc_chk(meta->philo_meta, meta, rules);
 		memset(meta->philo_meta, 0, sizeof(t_philo) * 1);
+		gettimeofday(&tv, NULL);
+		rules->time_init = (tv.tv_sec * 1000000) + tv.tv_usec;
+		if (ft_philo_time_init(meta, rules))
+			return (1);
 		ft_philo_meta_init(meta, rules);
 		if (ft_philo_create(meta, rules) || ft_philo_timer_create(meta, rules))
 			return (1);
-		gettimeofday(&tv, NULL);
-		rules->time_init = tv.tv_sec * 1000000 + tv.tv_usec;
-		if (ft_philo_time_init(meta, rules))
-			return (1);
-		if (ft_philo_join(meta, rules) || ft_philo_timer_join(meta, rules))
+		if (ft_philo_join(meta, rules))
 			return (1);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 22:59:57 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/10/01 01:44:30 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/02 23:23:52 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,13 @@ int	ft_philo_timer_create(t_meta *meta, t_rules *rules)
 			perror("Failed to create timer thread");
 			return (1);
 		}
-		num_philo += 1;
+		pthread_mutex_unlock(&meta->philo_meta[num_philo].time_key);
+		num_philo += 2;
+		if (num_philo >= rules->num_philo && !(num_philo % 2))
+		{
+			usleep(500);
+			num_philo = 1;
+		}
 	}
 	return (0);
 }
@@ -38,7 +44,7 @@ int	ft_philo_timer_join(t_meta *meta, t_rules *rules)
 	int	num_philo;
 
 	num_philo = 0;
-	ft_myusleep(5000);
+	ft_myusleep(1000);
 	while (num_philo < rules->num_philo)
 	{
 		if (pthread_join(meta->philo_meta[num_philo].philo_timer, NULL))
@@ -46,7 +52,12 @@ int	ft_philo_timer_join(t_meta *meta, t_rules *rules)
 			perror("Failed to join timer thread");
 			return (1);
 		}
-		num_philo += 1;
+		num_philo += 2;
+		if (num_philo >= rules->num_philo && !(num_philo % 2))
+		{
+			usleep(500);
+			num_philo = 1;
+		}
 	}
 	return (0);
 }

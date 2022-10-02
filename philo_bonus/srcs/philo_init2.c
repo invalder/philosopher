@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:14:12 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 01:48:54 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/03 01:16:22 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_philo_timer_create(t_meta *meta, t_rules *rules)
 		perror("Failed to create timer thread");
 		return (1);
 	}
+	pthread_detach(meta->philo_meta[0].philo_timer);
 	return (0);
 }
 

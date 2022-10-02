@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 00:37:45 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 01:59:04 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/03 00:21:30 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_rules
 	int				num_eat_time;
 	int				is_alive;
 	size_t			time_init;
+	pthread_mutex_t	printer;
 }	t_rules;
 
 typedef struct s_philo
@@ -51,12 +52,13 @@ typedef struct s_philo
 	pthread_t		philosopher;
 	pthread_t		philo_timer;
 	pthread_mutex_t	*fork_left;
+	pthread_mutex_t	time_key;
 	t_rules			*rule;
 }	t_philo;
 
 typedef struct s_meta
 {
-	t_philo		*philo_meta;
+	t_philo			*philo_meta;
 }	t_meta;
 
 int		ft_isspace(int c);
@@ -76,7 +78,7 @@ int		ft_handler2(int err_code);
 
 int		ft_philo_meta_init_first(t_meta *meta, t_rules *rules);
 int		ft_philo_meta_init(t_meta *meta, t_rules *rules);
-int		t_philo_create(t_meta *meta, t_rules *rules);
+int		ft_philo_create(t_meta *meta, t_rules *rules, int num_philo);
 int		ft_philo_join(t_meta *meta, t_rules *rules);
 
 int		ft_philo_timer_create(t_meta *meta, t_rules *rules);
@@ -85,6 +87,7 @@ int		ft_philo_timer_join(t_meta *meta, t_rules *rules);
 int		ft_philo_init(t_meta *meta, t_rules *rules);
 
 void	*ft_philo_routine(t_philo *philo);
+void	*ft_philo_routine2(t_philo *philo);
 void	*ft_philo_timer_routine(t_philo *philo);
 
 int		ft_philo_fork_left(t_philo *philo);

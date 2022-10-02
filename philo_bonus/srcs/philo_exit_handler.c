@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 00:29:29 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/10/01 01:24:55 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/03 01:19:06 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_kill_other_children(t_meta *meta, t_rules *rules)
 	{
 		if (cnt != (meta->philo_id - 1))
 		{
-			if (kill(meta->proc_list[cnt], SIGINT) < 0)
+			if (kill(meta->proc_list[cnt], SIGKILL) < 0)
 			{
 				perror("Failed to kill");
 				exit(1);

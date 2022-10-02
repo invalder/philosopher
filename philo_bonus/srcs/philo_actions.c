@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nnakarac <nnakarac@42.fr>                  +#+  +:+       +#+        */
+/*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:12:34 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/30 17:22:47 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/03 01:47:59 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ int	ft_philo_think(t_philo *philo)
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_think = ft_current_time(philo->rule) / 1000;
-			sem_wait(philo->rule->actionsem);
 			if (philo->rule->is_alive && philo->is_alive)
 			{
+				sem_wait(philo->rule->actionsem);
 				printf(YEL"%ld ms, %d is thinking\n"COLOR_RESET, \
 					current_think, philo->philo_num);
+				sem_post(philo->rule->actionsem);
 			}
-			sem_post(philo->rule->actionsem);
 			philo->eat_allow = 0;
 			return (0);
 		}

@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:36:53 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/28 02:22:20 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/03 00:21:40 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	ft_philo_meta_init(t_meta *meta, t_rules *rules)
 		meta->philo_meta[num_philo].rule = rules;
 		meta->philo_meta[num_philo].fork_right = \
 			(pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
+		meta->philo_meta[num_philo].time_key = \
+			(pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;
 		if (rules->num_eat_time > 0)
 			meta->philo_meta[num_philo].time_to_eat = rules->num_eat_time;
 		num_philo++;
@@ -50,12 +52,10 @@ int	ft_philo_time_init(t_meta *meta, t_rules *rules)
 	return (0);
 }
 
-int	ft_philo_create(t_meta *meta, t_rules *rules)
+int	ft_philo_create(t_meta *meta, t_rules *rules, int num_philo)
 {
-	int	num_philo;
 	int	max_philo;
 
-	num_philo = 0;
 	max_philo = rules->num_philo;
 	while (num_philo < max_philo)
 	{
@@ -63,6 +63,8 @@ int	ft_philo_create(t_meta *meta, t_rules *rules)
 			meta->philo_meta[num_philo].fork_left = \
 				&meta->philo_meta[(num_philo + 1) % max_philo].fork_right;
 		pthread_mutex_init(&meta->philo_meta[num_philo].fork_right, NULL);
+		pthread_mutex_init(&meta->philo_meta[num_philo].time_key, NULL);
+		pthread_mutex_lock(&meta->philo_meta[num_philo].time_key);
 		if (pthread_create(&meta->philo_meta[num_philo].philosopher, NULL, \
 			(void *)ft_philo_routine, &meta->philo_meta[num_philo]))
 		{
@@ -109,12 +111,12 @@ int	ft_philo_init(t_meta *meta, t_rules *rules)
 	if (!meta->philo_meta)
 		return (1);
 	ft_philo_meta_init(meta, rules);
-	if (ft_philo_create(meta, rules))
+	gettimeofday(&tv, NULL);
+	rules->time_init = tv.tv_sec * 1000000 + tv.tv_usec;
+	if (ft_philo_create(meta, rules, 0))
 		return (1);
 	if (ft_philo_timer_create(meta, rules))
 		return (1);
-	gettimeofday(&tv, NULL);
-	rules->time_init = tv.tv_sec * 1000000 + tv.tv_usec;
 	if (ft_philo_time_init(meta, rules))
 		return (1);
 	if (ft_philo_join(meta, rules))

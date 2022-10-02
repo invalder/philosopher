@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:12:34 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/10/01 02:16:16 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/03 00:10:43 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_philo_fork_left(t_philo *philo)
 		(philo->eat_allow != 1 && philo->eat_allow != 3) && \
 		philo->fork_left && !pthread_mutex_lock(philo->fork_left))
 	{
-		ft_myusleep(250);
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			take_fork = ft_current_time(philo->rule) / 1000;
@@ -49,7 +48,6 @@ int	ft_philo_fork_right(t_philo *philo)
 		(philo->eat_allow != 2 && philo->eat_allow != 3) && \
 		!pthread_mutex_lock(&philo->fork_right))
 	{
-		ft_myusleep(250);
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			take_fork = ft_current_time(philo->rule) / 1000;
@@ -74,7 +72,6 @@ int	ft_philo_eat(t_philo *philo)
 	current_eat = 0;
 	if (philo->rule->is_alive && philo->is_alive && philo->eat_allow == 3)
 	{
-		ft_myusleep(1000);
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_eat = ft_current_time(philo->rule) / 1000;
@@ -101,7 +98,6 @@ int	ft_philo_sleep(t_philo *philo)
 	if (philo->rule->is_alive && philo->is_alive \
 		&& philo->eat_allow == 4)
 	{
-		ft_myusleep(250);
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_sleep = ft_current_time(philo->rule) / 1000;
@@ -127,7 +123,6 @@ int	ft_philo_think(t_philo *philo)
 	if (philo->rule->is_alive && philo->is_alive \
 		&& philo->eat_allow == 5)
 	{
-		ft_myusleep(250);
 		if (philo->rule->is_alive && philo->is_alive)
 		{
 			current_think = ft_current_time(philo->rule) / 1000;

@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:38:08 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/09/18 14:23:22 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/02 23:23:12 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_current_time(t_rules *rules)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000000 + tv.tv_usec) - rules->time_init);
+	return (((tv.tv_sec * 1000000) + tv.tv_usec) - rules->time_init);
 }
 
 size_t	ft_current_time_rel(size_t current_time, t_rules *rules)

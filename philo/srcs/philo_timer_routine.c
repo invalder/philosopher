@@ -6,7 +6,7 @@
 /*   By: nnakarac <nnakarac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:04:19 by nnakarac          #+#    #+#             */
-/*   Updated: 2022/10/01 01:21:55 by nnakarac         ###   ########.fr       */
+/*   Updated: 2022/10/02 23:59:07 by nnakarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ void	*ft_philo_timer_routine(t_philo *philo)
 int	ft_philo_starving(t_philo *philo)
 {
 	size_t			current_time;
+	size_t			current_time2;
 
-	current_time = ft_current_time(philo->rule) / 1000;
+	current_time2 = ft_current_time(philo->rule);
+	current_time = current_time2 / 1000;
+	if (philo->last_eat > current_time)
+		return (0);
 	if ((current_time - philo->last_eat) <= \
 		((size_t) philo->rule->time_to_die))
 		return (0);
