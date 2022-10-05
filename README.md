@@ -1,1 +1,3 @@
 # philosopher
+
+Dining Philosopher program.
